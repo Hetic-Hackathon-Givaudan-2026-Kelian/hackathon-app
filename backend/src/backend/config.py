@@ -14,5 +14,7 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://host.docker.internal:11434/v1"
     mistral_api_key: str | None = None
 
+    prompts_dir: str  = "../ia/prompts"
+
 
 settings = Settings()
