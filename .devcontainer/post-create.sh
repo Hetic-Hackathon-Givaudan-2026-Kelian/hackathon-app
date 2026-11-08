@@ -41,6 +41,16 @@ install_front_dependencies() {
     fi
 }
 
+copy_env_example_to_env() {
+    if [ -f "./backend/.env" ]; then
+        echo "Fichier ENV déjà existant"
+    else
+        echo "Création du fichier env..."
+        cp ./backend/.env.example ./backend/.env
+    fi
+}
+
 install_uv || exit 1
 install_back_dependencies || exit 1
 install_front_dependencies || exit 1
+copy_env_example_to_env || exit 1
