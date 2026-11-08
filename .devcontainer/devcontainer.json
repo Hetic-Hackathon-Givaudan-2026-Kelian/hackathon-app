@@ -1,0 +1,54 @@
+{
+  "name": "hackathon givaudan",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+        "version": "24"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+        "extensions": [
+            "ms-python.python",
+            "dbaeumer.vscode-eslint",
+            "charliermarsh.ruff",
+            "ms-toolsai.jupyter",
+            "esbenp.prettier-vscode",
+            "bradlc.vscode-tailwindcss"
+
+        ],
+
+        "settings": {
+            "editor.formatOnSave": true,
+            "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
+            
+            "[python]": {
+                "editor.defaultFormatter": "charliermarsh.ruff"
+            },
+            "[javascript][typescript][typescriptreact]":{
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+            }
+        }
+    }
+  },
+
+  "forwardPorts": [8000, 5173],
+  "portsAttributes": {
+    "8000":{
+        "label": "Backend - FastAPI",
+        "onAutoForward": "notify",
+        "protocol": "http"
+    },
+    "5173": {
+        "label": "Frontend - Vite",
+        "onAutoForward": "openBrowser",
+        "protocol": "http"
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+  
+}
