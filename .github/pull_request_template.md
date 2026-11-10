@@ -11,7 +11,7 @@ Closes #
 
 ## Capture
 
-<!-- Si l'interface ou le labo 3D change. Sinon, supprimez cette section. -->
+<!-- Si l'interface change. Sinon, supprimez cette section. -->
 
 ## Avant de demander une relecture
 
