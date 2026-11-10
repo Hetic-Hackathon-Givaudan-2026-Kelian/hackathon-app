@@ -1,5 +1,5 @@
 name: Task
-description: Un travail concret. Pour une question à trancher, mettez une durée max dans le titre (ex. « 1h max »).
+description: Un travail concret à réaliser.
 title: "[Task] "
 labels: ["task"]
 body:
@@ -8,7 +8,7 @@ body:
     attributes:
       label: À faire
       value: |
-        - [ ] 
+        - [ ]
     validations:
       required: true
   - type: textarea
