@@ -1,0 +1,20 @@
+name: Task
+description: Un travail concret. Pour une question à trancher, mettez une durée max dans le titre (ex. « 1h max »).
+title: "[Task] "
+labels: ["task"]
+body:
+  - type: textarea
+    id: afaire
+    attributes:
+      label: À faire
+      value: |
+        - [ ] 
+    validations:
+      required: true
+  - type: textarea
+    id: fini
+    attributes:
+      label: Terminé quand
+      placeholder: L'API data répond à /ask avec une référence du catalogue.
+    validations:
+      required: true

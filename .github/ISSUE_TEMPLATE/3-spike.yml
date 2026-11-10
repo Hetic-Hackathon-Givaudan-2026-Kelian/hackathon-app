@@ -1,0 +1,26 @@
+name: Spike
+description: Une question à trancher avant de construire, en temps limité. Le résultat est une réponse, pas forcément du code.
+title: "[Spike] "
+labels: ["spike"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      placeholder: Qwen 4B comprend-il « frais, pas trop sucré » comme Fraîcheur haute et Sucrosité basse ?
+    validations:
+      required: true
+  - type: textarea
+    id: resultat
+    attributes:
+      label: Résultat attendu
+      placeholder: On teste 10 phrases de clients, on compte les bonnes réponses, et on décide si on garde ou si on change.
+    validations:
+      required: true
+  - type: dropdown
+    id: duree
+    attributes:
+      label: Durée max
+      options: [1h, 2h, Demi-journée]
+    validations:
+      required: true
