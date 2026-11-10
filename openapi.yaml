@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  title: API Assistant de commande d'arômes
+  version: 0.1.0
+  description: |
+    API du back de l'équipe Peanuts (Givaudan AI Innovation Challenge, sujet « Commande »).
+    Un fondateur de petite marque alimentaire décrit son produit ; l'assistant lui pose,
+    à chaque tour, la question la plus utile jusqu'à une référence du catalogue d'arômes,
+    puis l'aide à préparer sa commande.
+
+    Règle métier : l'assistant n'invente ni prix, ni délai, ni compatibilité.
+
+    Ce fichier est le contrat de référence (voir docs/ADR/0003-contrat-api-openapi.md).
+    Le choix du flux SSE est expliqué dans docs/ADR/0002-streaming-sse.md.
+    La route /docs générée par FastAPI sert au développement, mais c'est ce fichier qui fait foi.
+servers:
+  - url: http://localhost:8000
+    description: Développement local (devcontainer)
+
+tags:
+  - name: Santé
+  - name: Chat
+
+paths:
+  /health:
+    get:
+      tags: [Santé]
+      summary: Vérifie que le back répond
+      operationId: health
+      responses:
+        "200":
+          description: Le back est démarré
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /chat:
+    post:
+      tags: [Chat]
+      summary: Envoie un message à l'assistant et reçoit sa réponse en flux
+      description: |
+        La réponse est un flux Server-Sent Events (SSE). Chaque événement est une ligne
+        `data: {json}` suivie d'une ligne vide. Le flux se termine par un événement `done`
+        (ou `error` en cas de problème).
+
+        Le back ne garde pas d'état : le front renvoie tout l'historique à chaque message.
+      operationId: chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatRequest"
+            example:
+              message: Avez-vous de la vanille bourbon en stock ?
+              history: []
+      responses:
+        "200":
+          description: Flux d'événements de l'assistant
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/AgentEvent"
+              example: |
+                data: {"type": "tool_call", "tool_name": "check_stock", "arguments": {"product_name": "vanille bourbon"}}
+
+                data: {"type": "tool_result", "tool_name": "check_stock", "result": {"found": true, "product": "vanille bourbon", "quantity_kg": 120}}
+
+                data: {"type": "text", "content": "La vanille bourbon "}
+
+                data: {"type": "text", "content": "est disponible : 120 kg en stock."}
+
+                data: {"type": "done"}
+        "422":
+          description: Requête invalide (champ manquant ou mauvais type)
+
+components:
+  schemas:
+    Message:
+      type: object
+      required: [role, content]
+      properties:
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+
+    ChatRequest:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+          description: Le nouveau message du client
+        history:
+          type: array
+          description: Les échanges précédents, du plus ancien au plus récent
+          items:
+            $ref: "#/components/schemas/Message"
+          default: []
+
+    TextEvent:
+      type: object
+      description: Un morceau de la réponse texte de l'assistant
+      required: [type, content]
+      properties:
+        type:
+          const: text
+        content:
+          type: string
+
+    ToolCallEvent:
+      type: object
+      description: L'assistant appelle un de ses outils (par exemple check_stock)
+      required: [type, tool_name, arguments]
+      properties:
+        type:
+          const: tool_call
+        tool_name:
+          type: string
+        arguments:
+          type: object
+          additionalProperties: true
+
+    ToolResultEvent:
+      type: object
+      description: Le résultat renvoyé par l'outil. Le front s'en sert pour mettre à jour la fiche.
+      required: [type, tool_name, result]
+      properties:
+        type:
+          const: tool_result
+        tool_name:
+          type: string
+        result:
+          description: Dépend de l'outil appelé
+
+    DoneEvent:
+      type: object
+      description: Fin du flux, la réponse est complète
+      required: [type]
+      properties:
+        type:
+          const: done
+
+    ErrorEvent:
+      type: object
+      description: Une erreur est survenue, le flux s'arrête
+      required: [type, message]
+      properties:
+        type:
+          const: error
+        message:
+          type: string
+
+    AgentEvent:
+      oneOf:
+        - $ref: "#/components/schemas/TextEvent"
+        - $ref: "#/components/schemas/ToolCallEvent"
+        - $ref: "#/components/schemas/ToolResultEvent"
+        - $ref: "#/components/schemas/DoneEvent"
+        - $ref: "#/components/schemas/ErrorEvent"
+      discriminator:
+        propertyName: type
+        mapping:
+          text: "#/components/schemas/TextEvent"
+          tool_call: "#/components/schemas/ToolCallEvent"
+          tool_result: "#/components/schemas/ToolResultEvent"
+          done: "#/components/schemas/DoneEvent"
+          error: "#/components/schemas/ErrorEvent"

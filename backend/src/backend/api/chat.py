@@ -21,4 +21,4 @@ async def chat(request: ChatRequest):
         async for event in agent.run(request.message, request.history):
             yield f"data: {event.model_dump_json()}\n\n"
 
-    return StreamingResponse(generer(), media_type="text/event_stream")
+    return StreamingResponse(generer(), media_type="text/event-stream")
