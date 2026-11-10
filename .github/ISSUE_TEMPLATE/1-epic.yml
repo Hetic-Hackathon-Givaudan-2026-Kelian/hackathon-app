@@ -1,0 +1,27 @@
+name: Epic
+description: Un grand objectif. Les stories s'ajoutent dedans avec « Create sub-issue ».
+title: "[Epic] "
+labels: ["epic"]
+body:
+  - type: textarea
+    id: objectif
+    attributes:
+      label: Objectif
+      placeholder: Le client décrit son produit avec ses mots et l'assistant lui pose les bonnes questions.
+    validations:
+      required: true
+  - type: textarea
+    id: reussite
+    attributes:
+      label: Réussi quand
+      placeholder: |
+        - Le client arrive à une référence du catalogue en 5 questions max
+    validations:
+      required: true
+  - type: dropdown
+    id: jalon
+    attributes:
+      label: Jalon
+      options: [Oral vendredi, V1 décembre]
+    validations:
+      required: true

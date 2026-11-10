@@ -1,0 +1,31 @@
+name: Story
+description: Ce que le client doit pouvoir faire, vu de son côté.
+title: "[Story] "
+labels: ["story"]
+body:
+  - type: textarea
+    id: recit
+    attributes:
+      label: Story
+      value: |
+        En tant que fondateur d'une petite marque,
+        je veux …
+        afin de …
+    validations:
+      required: true
+  - type: textarea
+    id: criteres
+    attributes:
+      label: C'est bon quand
+      placeholder: |
+        - [ ] J'écris « limonade peu sucrée » et l'assistant me pose une question sur un autre critère
+        - [ ] Il ne me donne jamais de prix ni de délai
+    validations:
+      required: true
+  - type: dropdown
+    id: priorite
+    attributes:
+      label: Priorité
+      options: [Indispensable vendredi, Si on a le temps]
+    validations:
+      required: true

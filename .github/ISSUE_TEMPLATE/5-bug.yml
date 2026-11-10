@@ -1,0 +1,27 @@
+name: Bug
+description: Quelque chose ne marche pas.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: probleme
+    attributes:
+      label: Problème
+      placeholder: "Après ma 2e réponse, l'assistant ne répond plus (attendu : il pose la question suivante)."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduire
+    attributes:
+      label: Pour reproduire
+      value: |
+        1. 
+    validations:
+      required: true
+  - type: dropdown
+    id: gravite
+    attributes:
+      label: Gravité
+      options: [Bloque la démo, Peut attendre]
+    validations:
+      required: true
