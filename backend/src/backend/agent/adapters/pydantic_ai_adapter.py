@@ -84,7 +84,7 @@ class PydanticAIAgent:
                             tool_name=event.part.tool_name,
                             result=event.part.content,
                         )
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             yield ErrorEvent(message=str(exc))
             return
 
