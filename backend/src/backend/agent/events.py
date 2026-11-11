@@ -7,6 +7,7 @@ class TextEvent(BaseModel):
     type: Literal["text"] = "text"
     content: str
 
+
 class ToolCallEvent(BaseModel):
     type: Literal["tool_call"] = "tool_call"
     tool_name: str

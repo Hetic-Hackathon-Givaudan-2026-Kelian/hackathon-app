@@ -22,3 +22,4 @@ puis l'aide à faire sa demande.
 - Architecture hexagonale : Pydantic AI n'est importé que dans `agent/adapters/`
 - Contrat d'API : `openapi.yaml` — Décisions : `docs/ADR/`
 - Ne jamais lire ni proposer de committer un `.env` ou une clé
+- Branches : une branche par ticket, PR vers `develop` ; `main` ne reçoit que les livraisons
