@@ -14,7 +14,13 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://host.docker.internal:11434/v1"
     mistral_api_key: str | None = None
 
-    prompts_dir: str  = "../ia/prompts"
+    prompts_dir: str = "../ia/prompts"
+
+    data_api_url: str = "http://host.docker.internal:8001"
+
+    data_api_timeout: float = 10.0
+
+    data_api_fake: bool =  False
 
 
 settings = Settings()
