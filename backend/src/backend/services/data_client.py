@@ -30,7 +30,6 @@ class AskResponse(BaseModel):
     sources: list[Source]
 
 
-
 _FAKE_RESPONSE = [
     Source(
         source_type="arome",

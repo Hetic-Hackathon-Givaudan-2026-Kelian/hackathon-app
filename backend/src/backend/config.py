@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     data_api_timeout: float = 10.0
 
-    data_api_fake: bool =  False
+    data_api_fake: bool = False
 
 
 settings = Settings()

@@ -16,6 +16,8 @@ Il décrit `GET /health` et `POST /chat` avec ses 5 types d'événements.
 
 Quand une PR modifie une route, elle met aussi à jour `openapi.yaml`.
 Si le changement casse le format, on prévient l'autre équipe avant de fusionner.
+Le contrat de l'API de l'équipe data est copié dans [`ia/contrat-api.json`](../../ia/contrat-api.json).
+Le back s'appuie sur cette version. Si leur API change, l'équipe data met à jour ce fichier par une PR.
 
 ## Conséquences
 

@@ -31,6 +31,6 @@ frontend/                   → l'interface de chat
 
 ## Règles
 
-- Jamais de push sur `main` : branche + Pull Request
+- Jamais de push direct : une branche, puis une Pull Request vers `develop`
 - Commits : `feat:` `fix:` `docs:` `chore:` `refactor:`
 - Le `.env` ne se commit pas

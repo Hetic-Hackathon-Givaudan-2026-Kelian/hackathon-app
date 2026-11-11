@@ -5,4 +5,6 @@ from .events import AgentEvent, Message
 
 
 class AgentPort(Protocol):
-    def run(self, message: str, history: list[Message]) -> AsyncIterator[AgentEvent]: ...
+    def run(
+        self, message: str, history: list[Message]
+    ) -> AsyncIterator[AgentEvent]: ...
