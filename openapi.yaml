@@ -20,6 +20,7 @@ servers:
 tags:
   - name: Santé
   - name: Chat
+  - name: Briefs
 
 paths:
   /health:
@@ -80,8 +81,78 @@ paths:
         "422":
           description: Requête invalide (champ manquant ou mauvais type)
 
+  /briefs:
+    post:
+      tags: [Briefs]
+      summary: Envoie la demande du client aux experts Givaudan
+      description: |
+        Prototype : la demande est enregistrée dans un fichier JSON (ia/data/briefs/).
+        En V1, elle serait transmise aux outils existants (CRM, suivi des projets).
+      operationId: sendBrief
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BriefRequest"
+            example:
+              answers: ["Une limonade fraîche et acidulée", "Plutôt agrumes"]
+              aromas:
+                [{ source_id: "AR-citron-boissons", name: "Citron - boissons" }]
+              message: "Lancement prévu au printemps."
+      responses:
+        "201":
+          description: Demande enregistrée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BriefResponse"
+        "422":
+          description: Demande invalide (aucune réponse du client, message trop long)
+        "503":
+          description: La demande n'a pas pu être enregistrée
+
 components:
   schemas:
+    BriefRequest:
+      type: object
+      required: [answers]
+      properties:
+        answers:
+          type: array
+          minItems: 1
+          description: Ce que le client a dit à Umi
+          items:
+            type: string
+        aromas:
+          type: array
+          description: Les arômes du catalogue joints à la demande
+          items:
+            type: object
+            required: [source_id, name]
+            properties:
+              source_id:
+                type: string
+              name:
+                type: string
+        message:
+          type: [string, "null"]
+          maxLength: 2000
+
+    BriefResponse:
+      type: object
+      required: [id, status, created_at]
+      properties:
+        id:
+          type: string
+          example: DEM-20261112-8A1C
+        status:
+          type: string
+          example: sent
+        created_at:
+          type: string
+          format: date-time
+
     Message:
       type: object
       required: [role, content]

@@ -1,7 +1,7 @@
 from typing import Literal
 
 import httpx
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from backend.config import settings
 
@@ -11,6 +11,8 @@ class DataApiError(Exception):
 
 
 class Source(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
     source_type: str
     source_id: str
     is_synthetic: bool

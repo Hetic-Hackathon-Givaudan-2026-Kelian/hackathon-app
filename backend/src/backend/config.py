@@ -16,6 +16,8 @@ class Settings(BaseSettings):
 
     prompts_dir: str = "../ia/prompts"
 
+    briefs_dir: str = "../ia/data/briefs"
+
     data_api_url: str = "http://host.docker.internal:8001"
 
     data_api_timeout: float = 60.0

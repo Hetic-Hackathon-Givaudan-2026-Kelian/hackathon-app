@@ -9,6 +9,7 @@ export default defineConfig({
     proxy: {
       // Le front appelle /chat, Vite redirige vers le back FastAPI
       "/chat": "http://localhost:8000",
+      "/briefs": "http://localhost:8000",
     },
   },
 });
