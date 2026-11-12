@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import { ChatIcon, ExploreIcon, SendIcon, UserIcon } from "../components/Icons";
 import Visual from "../components/Visual";
+import { useInView } from "../useInView";
 
 type Props = {
   onStart: () => void;
@@ -26,6 +27,9 @@ const STEPS = [
 
 /** Page d'accueil, d'après la maquette « Landing page ». */
 export default function Landing({ onStart }: Props) {
+  const [stepsRef, stepsVisible] = useInView<HTMLElement>();
+  const [showcaseRef, showcaseVisible] = useInView<HTMLElement>();
+
   return (
     <div className="page landing">
       <Header>
@@ -42,22 +46,33 @@ export default function Landing({ onStart }: Props) {
           className="hero-visual"
         />
         <div className="hero-text">
-          <h1>
+          <h1 className="anim-up">
             Une nouvelle façon
             <br />
             de parler saveurs
             <br />
             avec Umi
           </h1>
-          <button className="btn btn-dark" onClick={onStart}>
+          <button
+            className="btn btn-dark anim-up"
+            style={{ "--delay": "180ms" } as React.CSSProperties}
+            onClick={onStart}
+          >
             Accéder à mon espace client <span aria-hidden="true">→</span>
           </button>
         </div>
       </section>
 
-      <section className="steps">
-        {STEPS.map((step) => (
-          <article key={step.title} className="step">
+      <section
+        ref={stepsRef}
+        className={`steps reveal ${stepsVisible ? "is-visible" : ""}`}
+      >
+        {STEPS.map((step, i) => (
+          <article
+            key={step.title}
+            className="step"
+            style={{ "--i": i } as React.CSSProperties}
+          >
             <span className="step-icon">{step.icon}</span>
             <h2>{step.title}</h2>
             <p>{step.text}</p>
@@ -65,7 +80,10 @@ export default function Landing({ onStart }: Props) {
         ))}
       </section>
 
-      <section className="showcase">
+      <section
+        ref={showcaseRef}
+        className={`showcase reveal ${showcaseVisible ? "is-visible" : ""}`}
+      >
         <p className="eyebrow">Avec Umi</p>
         <h2>
           Un échange naturel, comme avec
@@ -73,15 +91,31 @@ export default function Landing({ onStart }: Props) {
           un interlocuteur dédié.
         </h2>
         <div className="sample-chat">
-          <p className="sample-label sample-label-right">Vous</p>
-          <p className="bubble-msg bubble-user">
+          <p
+            className="sample-label sample-label-right"
+            style={{ "--i": 0 } as React.CSSProperties}
+          >
+            Vous
+          </p>
+          <p
+            className="bubble-msg bubble-user"
+            style={{ "--i": 1 } as React.CSSProperties}
+          >
             On voudrait un arôme fruité pour une boisson. Quelque chose de
             frais, qui rappelle un peu l'été. Pas forcément un fruit en
             particulier mais plutôt cette sensation quand il fait chaud et qu'on
             a envie de boire quelque chose de vraiment rafraîchissant.
           </p>
-          <p className="sample-label">Umi</p>
-          <p className="bubble-msg bubble-umi">
+          <p
+            className="sample-label"
+            style={{ "--i": 3 } as React.CSSProperties}
+          >
+            Umi
+          </p>
+          <p
+            className="bubble-msg bubble-umi"
+            style={{ "--i": 4 } as React.CSSProperties}
+          >
             Et cette sensation de fraîcheur, vous l'imaginez plutôt douce et
             légère ou plus vive, avec une petite touche acidulée ?
           </p>

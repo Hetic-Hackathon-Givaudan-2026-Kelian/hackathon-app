@@ -25,7 +25,7 @@ export default function Login({ onLogin, onBack }: Props) {
         />
 
         <form
-          className="login-form"
+          className="login-form anim-up"
           onSubmit={(e) => {
             e.preventDefault();
             onLogin();

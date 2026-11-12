@@ -12,27 +12,35 @@ export default function App() {
   const chat = useChat();
 
   if (screen === "landing") {
-    return <Landing onStart={() => setScreen("login")} />;
+    return (
+      <div key="landing" className="screen-fade">
+        <Landing onStart={() => setScreen("login")} />
+      </div>
+    );
   }
 
   if (screen === "login") {
     return (
-      <Login
-        onLogin={() => setScreen("conversation")}
-        onBack={() => setScreen("landing")}
-      />
+      <div key="login" className="screen-fade">
+        <Login
+          onLogin={() => setScreen("conversation")}
+          onBack={() => setScreen("landing")}
+        />
+      </div>
     );
   }
 
   return (
-    <Conversation
-      messages={chat.messages}
-      suggestions={chat.suggestions}
-      loading={chat.loading}
-      error={chat.error}
-      onSend={chat.send}
-      onCancel={chat.reset}
-      onSummary={() => {}}
-    />
+    <div key="conversation" className="screen-fade">
+      <Conversation
+        messages={chat.messages}
+        suggestions={chat.suggestions}
+        loading={chat.loading}
+        error={chat.error}
+        onSend={chat.send}
+        onCancel={chat.reset}
+        onSummary={() => {}}
+      />
+    </div>
   );
 }
