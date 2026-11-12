@@ -44,10 +44,10 @@ export default function Conversation({
 
   const answersRef = useRef<HTMLOListElement>(null);
 
-  // La dernière question d'Umi s'affiche en grand. Au-dessus, les réponses
-  // déjà données par le client, en pastilles, pour qu'il garde le fil.
   const last = messages.at(-1);
-  const question = last?.role === "assistant" ? last.content : opening;
+  const question = (
+    last?.role === "assistant" ? last.content : opening
+  ).replaceAll("**", "");
   const isQuestion = question.trim().endsWith("?");
   const answers = messages
     .map((m, i) => ({ ...m, index: i }))

@@ -15,6 +15,8 @@ export type Aroma = {
   applications?: string[] | string;
   sucrosite?: number | string;
   tenue_chaleur?: string;
+  prix?: number | string;
+  delai?: number | string;
   prix_indicatif_eur_kg?: number | string;
   delai_jours?: number | string;
 };

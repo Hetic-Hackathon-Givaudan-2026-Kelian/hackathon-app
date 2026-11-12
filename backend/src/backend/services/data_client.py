@@ -1,5 +1,3 @@
-from typing import Literal
-
 import httpx
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -33,7 +31,7 @@ class AskRequest(BaseModel):
 
 class AskResponse(BaseModel):
     question: str
-    status: Literal["needs_clarification", "recommendations_ready"]
+    status: str
     answer: str
     model: str
     sources: list[Source]
