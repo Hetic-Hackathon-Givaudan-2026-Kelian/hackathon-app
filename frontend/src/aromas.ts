@@ -47,6 +47,14 @@ function capitalize(value?: string): string | undefined {
   return value ? value.charAt(0).toUpperCase() + value.slice(1) : value;
 }
 
+/** La sucrosité arrive en note de 1 à 5 (table d'Amine) ou en texte (« élevée »). */
+function sweetness(value?: string | number): string | undefined {
+  const v = str(value);
+  if (v === undefined) return undefined;
+  const n = Number(v.replace(/\/5$/, ""));
+  return Number.isNaN(n) ? v : `${Math.round(n)}/5`;
+}
+
 export function toCardData(source: Aroma): AromaCardData {
   const t = parseText(source.text);
   return {
@@ -55,13 +63,18 @@ export function toCardData(source: Aroma): AromaCardData {
     family: capitalize(str(source.famille ?? t["famille"])),
     notes: str(source.notes ?? t["notes"]),
     applications: list(source.applications ?? t["applications"]),
-    sweetness: str(source.sucrosite ?? t["sucrosité"]),
+    sweetness: sweetness(source.sucrosite ?? t["sucrosité"]),
     heat: capitalize(str(source.tenue_chaleur ?? t["tenue à la chaleur"])),
     price: str(
-      source.prix_indicatif_eur_kg ??
+      source.prix ??
+        source.prix_indicatif_eur_kg ??
         t["prix indicatif"]?.replace(/\s*euros?\/kg/i, ""),
     ),
-    leadTime: str(source.delai_jours ?? t["délai"]?.replace(/\s*jours?/i, "")),
+    leadTime: str(
+      source.delai ??
+        source.delai_jours ??
+        t["délai"]?.replace(/\s*jours?/i, ""),
+    ),
     demo: source.is_synthetic,
   };
 }
