@@ -131,7 +131,12 @@ button:disabled {
   align-items: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--peach-light) 0%, #fff6f2 45%, var(--white) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--peach-light) 0%,
+    #fff6f2 45%,
+    var(--white) 100%
+  );
   padding: 0 16px 40px;
 }
 
@@ -182,7 +187,9 @@ button:disabled {
   font-size: 14px;
   font-weight: 600;
   box-shadow: 0 1px 2px rgb(74 24 56 / 6%);
-  transition: border-color 0.15s, transform 0.15s;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
 }
 
 .chip:hover {
@@ -294,7 +301,12 @@ button:disabled {
   height: 140px;
   transform: translateX(-50%) rotate(-6deg);
   border-radius: 50%;
-  background: radial-gradient(ellipse at 60% 50%, #f7a98a 0%, #f6c9b4 35%, transparent 70%);
+  background: radial-gradient(
+    ellipse at 60% 50%,
+    #f7a98a 0%,
+    #f6c9b4 35%,
+    transparent 70%
+  );
   filter: blur(18px);
   opacity: 0.85;
 }
@@ -314,7 +326,12 @@ button:disabled {
 .bubble {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #fde3dc 45%, #f2b8a8 100%);
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ffffff 0%,
+    #fde3dc 45%,
+    #f2b8a8 100%
+  );
   box-shadow: inset -1px -2px 4px rgb(240 150 130 / 50%);
   opacity: 0.85;
 }
@@ -369,7 +386,13 @@ button:disabled {
 }
 
 .visual-peach {
-  background: linear-gradient(120deg, #fde7dc 0%, #f9d2c0 40%, #fbe3d6 70%, #fff3ec 100%);
+  background: linear-gradient(
+    120deg,
+    #fde7dc 0%,
+    #f9d2c0 40%,
+    #fbe3d6 70%,
+    #fff3ec 100%
+  );
 }
 
 .visual-berry {
@@ -381,7 +404,12 @@ button:disabled {
   border-radius: 50%;
   filter: blur(2px);
   border: 2px solid rgb(255 255 255 / 70%);
-  background: linear-gradient(90deg, rgb(255 255 255 / 0%), rgb(255 255 255 / 55%), rgb(255 255 255 / 0%));
+  background: linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0%),
+    rgb(255 255 255 / 55%),
+    rgb(255 255 255 / 0%)
+  );
 }
 
 .veil-1 {
@@ -423,7 +451,11 @@ button:disabled {
   right: 18%;
   top: 8%;
   border-radius: 50% 50% 50% 0;
-  background: radial-gradient(circle at 50% 60%, #ffe39a 0 10%, #fffaf5 11% 100%);
+  background: radial-gradient(
+    circle at 50% 60%,
+    #ffe39a 0 10%,
+    #fffaf5 11% 100%
+  );
   transform: rotate(45deg);
   box-shadow: 0 10px 30px rgb(230 160 130 / 35%);
 }
@@ -433,7 +465,12 @@ button:disabled {
   height: 130px;
   left: 35%;
   top: 30%;
-  background: radial-gradient(circle at 35% 30%, #ff6b81 0%, #d92649 55%, #9e1530 100%);
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ff6b81 0%,
+    #d92649 55%,
+    #9e1530 100%
+  );
   box-shadow: 0 14px 30px rgb(160 20 50 / 30%);
 }
 
@@ -442,25 +479,60 @@ button:disabled {
   height: 110px;
   left: 45%;
   top: 62%;
-  background: radial-gradient(circle at 40% 35%, #ffffff 0%, #f7eee8 55%, #d9c4bb 100%);
+  background: radial-gradient(
+    circle at 40% 35%,
+    #ffffff 0%,
+    #f7eee8 55%,
+    #d9c4bb 100%
+  );
   border: 6px solid #c94a5d;
 }
 
 .drop {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ffffff 0%, rgb(255 255 255 / 40%) 45%, rgb(240 160 130 / 50%) 100%);
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ffffff 0%,
+    rgb(255 255 255 / 40%) 45%,
+    rgb(240 160 130 / 50%) 100%
+  );
   box-shadow: inset -2px -3px 5px rgb(230 130 110 / 40%);
 }
 
 .visual-berry .drop {
-  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #ffd0d8 45%, #e8536f 100%);
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ffffff 0%,
+    #ffd0d8 45%,
+    #e8536f 100%
+  );
 }
 
-.drop-1 { width: 34px; height: 34px; left: 38%; top: 18%; }
-.drop-2 { width: 18px; height: 18px; left: 70%; top: 22%; }
-.drop-3 { width: 24px; height: 24px; left: 58%; top: 78%; }
-.drop-4 { width: 12px; height: 12px; left: 84%; top: 60%; }
+.drop-1 {
+  width: 34px;
+  height: 34px;
+  left: 38%;
+  top: 18%;
+}
+.drop-2 {
+  width: 18px;
+  height: 18px;
+  left: 70%;
+  top: 22%;
+}
+.drop-3 {
+  width: 24px;
+  height: 24px;
+  left: 58%;
+  top: 78%;
+}
+.drop-4 {
+  width: 12px;
+  height: 12px;
+  left: 84%;
+  top: 60%;
+}
 
 /* ---------- Accueil ---------- */
 
@@ -754,4 +826,251 @@ button:disabled {
   padding: 14px 24px;
   font-size: 16px;
   border-radius: 10px;
+}
+/* ======================================================
+   Animations
+   Discrètes, dans le ton des maquettes. Désactivées si
+   l'ordinateur demande de réduire les animations.
+   ====================================================== */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slow-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-6deg);
+  }
+  50% {
+    transform: translateX(-47%) rotate(-3deg);
+  }
+}
+
+/* Changement d'écran : fondu */
+.screen-fade {
+  animation: fade-in 0.45s ease both;
+}
+
+/* Apparition par le bas, avec un délai réglable (--delay) */
+.anim-up {
+  animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+/* Éléments qui apparaissent quand on les fait défiler à l'écran */
+.reveal > *,
+.reveal .sample-chat > * {
+  opacity: 0;
+}
+
+.reveal.is-visible > * {
+  animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 120ms);
+}
+
+.reveal.is-visible .sample-chat > * {
+  animation: fade-up 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(300ms + var(--i, 0) * 220ms);
+}
+
+/* Image d'accueil : zoom très lent, comme une respiration */
+.hero-visual .visual-image {
+  animation: slow-zoom 18s ease-in-out infinite alternate;
+}
+
+/* Bulles et voile de l'écran de conversation */
+.bubble {
+  animation: float 6s ease-in-out infinite;
+}
+
+.bubble:nth-child(odd) {
+  animation-duration: 8s;
+  animation-delay: -2s;
+}
+
+.ribbon-wave {
+  animation: drift 12s ease-in-out infinite;
+}
+
+.drop {
+  animation: float 7s ease-in-out infinite;
+}
+
+.drop-2,
+.drop-4 {
+  animation-duration: 9s;
+  animation-delay: -3s;
+}
+
+/* Suggestions : elles arrivent une par une */
+.chip {
+  animation: fade-up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(250ms + var(--i, 0) * 70ms);
+}
+
+/* Boutons : léger soulèvement au survol */
+.btn {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgb(24 24 58 / 14%);
+}
+
+.btn-dark:not(:disabled):hover span {
+  transform: translateX(3px);
+}
+
+.btn-dark span {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.send:not(:disabled):hover {
+  transform: scale(1.06);
+}
+
+.send {
+  transition: transform 0.15s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal > *,
+  .reveal .sample-chat > * {
+    opacity: 1;
+  }
+}
+
+/* ---------- Réponses déjà données, en pastilles ---------- */
+
+.answers-wrap {
+  margin: 0 auto 26px;
+  max-width: 680px;
+}
+
+.answers-label {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--plum-soft);
+}
+
+.answers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.answer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 280px;
+  padding: 6px 14px 6px 10px;
+  border-radius: var(--radius);
+  background: rgb(255 255 255 / 75%);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: default;
+  animation: fade-up 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.answer-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.answer-pill::before {
+  content: "";
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f7a98a, var(--plum-soft));
+}
+
+/* la dernière réponse est légèrement mise en avant */
+.answer-pill:last-child {
+  background: var(--white);
+  border-color: #e7b9c6;
+}
+
+/* avec des pastilles, la question remonte un peu */
+.question-zone:has(.answers-wrap) {
+  margin-top: 190px;
+}
+
+@media (max-width: 640px) {
+  .answers {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .answers::-webkit-scrollbar {
+    display: none;
+  }
+
+  .answer-pill {
+    flex-shrink: 0;
+    max-width: 200px;
+  }
 }

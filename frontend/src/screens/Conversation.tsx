@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Header from "../components/Header";
 import Ribbon from "../components/Ribbon";
@@ -29,11 +29,31 @@ export default function Conversation({
 }: Props) {
   const [input, setInput] = useState("");
 
-  const lastAssistant = [...messages]
-    .reverse()
-    .find((m) => m.role === "assistant");
-  const lastUser = [...messages].reverse().find((m) => m.role === "user");
-  const question = lastAssistant?.content ?? OPENING;
+  const answersRef = useRef<HTMLOListElement>(null);
+
+  // La dernière question d'Umi s'affiche en grand. Au-dessus, les réponses
+  // déjà données par le client, en pastilles, pour qu'il garde le fil.
+  const last = messages.at(-1);
+  const question = last?.role === "assistant" ? last.content : OPENING;
+  const isQuestion = question.trim().endsWith("?");
+  const answers = messages
+    .map((m, i) => ({ ...m, index: i }))
+    .filter((m) => m.role === "user")
+    .map((m) => ({
+      text: m.content,
+      // la question à laquelle le client répondait, affichée au survol
+      askedBefore:
+        messages
+          .slice(0, m.index)
+          .reverse()
+          .find((x) => x.role === "assistant")?.content ?? OPENING,
+    }));
+
+  // Sur petit écran, les pastilles défilent jusqu'à la dernière.
+  useEffect(() => {
+    const list = answersRef.current;
+    if (list) list.scrollLeft = list.scrollWidth;
+  }, [answers.length]);
 
   function submit(text: string) {
     if (!text.trim() || loading) return;
@@ -60,10 +80,25 @@ export default function Conversation({
         <Ribbon />
 
         <section className="question-zone" aria-live="polite">
-          {lastUser && <p className="echo">« {lastUser.content} »</p>}
+          {answers.length > 0 && (
+            <div className="answers-wrap">
+              <p className="answers-label">Votre projet</p>
+              <ol
+                ref={answersRef}
+                className="answers"
+                aria-label="Ce que vous avez déjà indiqué à Umi"
+              >
+                {answers.map((a, i) => (
+                  <li key={i} className="answer-pill" title={a.askedBefore}>
+                    <span className="answer-text">{a.text}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
 
           {loading ? (
-            <p className="thinking">
+            <p className="thinking anim-up">
               Umi cherche dans le catalogue
               <span className="dots">
                 <span />
@@ -72,22 +107,31 @@ export default function Conversation({
               </span>
             </p>
           ) : (
-            <>
+            <div key={question} className="anim-up">
               <h1 className="question">{question}</h1>
-              <p className="hint">
-                Vous pouvez répondre librement
-                {suggestions.length > 0 && " ou vous aider de ces suggestions"}.
-              </p>
+              {isQuestion && (
+                <p className="hint">
+                  Vous pouvez répondre librement
+                  {suggestions.length > 0 &&
+                    " ou vous aider de ces suggestions"}
+                  .
+                </p>
+              )}
               {suggestions.length > 0 && (
                 <div className="chips">
-                  {suggestions.map((s) => (
-                    <button key={s} className="chip" onClick={() => submit(s)}>
+                  {suggestions.map((s, i) => (
+                    <button
+                      key={s}
+                      className="chip"
+                      style={{ "--i": i } as React.CSSProperties}
+                      onClick={() => submit(s)}
+                    >
                       {s}
                     </button>
                   ))}
                 </div>
               )}
-            </>
+            </div>
           )}
 
           {error && <p className="error">{error}</p>}
