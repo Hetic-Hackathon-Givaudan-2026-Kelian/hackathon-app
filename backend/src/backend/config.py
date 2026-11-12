@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    agent_engine: Literal["pydantic_ai"] = "pydantic_ai"
+    agent_engine: Literal["pydantic_ai", "data_api"] = "pydantic_ai"
 
     llm_provider: Literal["ollama", "mistral"] = "ollama"
     llm_model: str = "qwen3.5:4b"
@@ -18,7 +18,7 @@ class Settings(BaseSettings):
 
     data_api_url: str = "http://host.docker.internal:8001"
 
-    data_api_timeout: float = 10.0
+    data_api_timeout: float = 60.0
 
     data_api_fake: bool = False
 

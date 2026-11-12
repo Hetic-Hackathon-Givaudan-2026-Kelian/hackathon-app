@@ -1,3 +1,5 @@
+from typing import Literal
+
 import httpx
 from pydantic import BaseModel, Field
 
@@ -21,10 +23,15 @@ class AskRequest(BaseModel):
     top_k: int = Field(
         default=4, ge=1, le=20, description="Nombre de passages à retrouver"
     )
+    history: list[dict[str, str]] = Field(
+        default_factory=list,
+        description="Messages précédents : {'role': 'user' | 'assistant', 'content': ...}",
+    )
 
 
 class AskResponse(BaseModel):
     question: str
+    status: Literal["needs_clarification", "recommendations_ready"]
     answer: str
     model: str
     sources: list[Source]
@@ -98,3 +105,52 @@ async def search_sources(question: str, top_k: int = 4) -> list[Source]:
         raise DataApiError("Une erreur est survenue avec l'API externe") from e
 
     return sources
+
+
+async def ask_assistant(
+    question: str, history: list[dict[str, str]], top_k: int = 4
+) -> AskResponse:
+    """Envoie le message du client et l'historique à l'assistant de l'API data.
+
+    Args:
+        question: Le dernier message du client.
+        history: Les messages précédents, du plus ancien au plus récent.
+        top_k: Nombre maximum d'arômes proposés.
+
+    Returns:
+        Soit une question pour préciser le besoin (needs_clarification),
+        soit des arômes du catalogue (recommendations_ready).
+
+    Raises:
+        DataApiError: si l'API data est injoignable, trop lente ou répond en erreur.
+    """
+    if settings.data_api_fake:
+        if len(history) < 4:
+            return AskResponse(
+                question=question,
+                status="needs_clarification",
+                answer="Pour quel type de produit cherchez-vous un arôme ?",
+                model="factice",
+                sources=[],
+            )
+        return AskResponse(
+            question=question,
+            status="recommendations_ready",
+            answer="Voici les arômes du catalogue qui correspondent à votre besoin.",
+            model="factice",
+            sources=_FAKE_RESPONSE[:top_k],
+        )
+
+    request = AskRequest(question=question, top_k=top_k, history=history)
+
+    try:
+        async with httpx.AsyncClient(timeout=settings.data_api_timeout) as client:
+            response = await client.post(
+                settings.data_api_url + "/ask",
+                json=request.model_dump(),
+            )
+            response.raise_for_status()
+            return AskResponse.model_validate(response.json())
+
+    except httpx.HTTPError as e:
+        raise DataApiError("Une erreur est survenue avec l'API externe") from e
