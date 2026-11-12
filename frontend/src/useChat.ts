@@ -2,12 +2,21 @@ import { useState } from "react";
 
 export type Message = { role: "user" | "assistant"; content: string };
 
-export type Arome = {
+export type Aroma = {
   source_type: string;
   source_id: string;
   is_synthetic: boolean;
   text: string;
   score: number;
+  // champs séparés, si l'API data les envoie
+  nom?: string;
+  famille?: string;
+  notes?: string;
+  applications?: string[] | string;
+  sucrosite?: number | string;
+  tenue_chaleur?: string;
+  prix_indicatif_eur_kg?: number | string;
+  delai_jours?: number | string;
 };
 
 type AgentEvent =
@@ -21,7 +30,7 @@ type AgentEvent =
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [aromes, setAromes] = useState<Arome[]>([]);
+  const [aromas, setAromas] = useState<Aroma[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -79,7 +88,7 @@ export function useChat() {
             event.type === "tool_result" &&
             event.tool_name === "recommend_aromas"
           ) {
-            setAromes(event.result as Arome[]);
+            setAromas(event.result as Aroma[]);
           }
           if (event.type === "error") {
             setError(event.message);
@@ -98,9 +107,9 @@ export function useChat() {
   function reset() {
     setMessages([]);
     setSuggestions([]);
-    setAromes([]);
+    setAromas([]);
     setError(null);
   }
 
-  return { messages, suggestions, aromes, loading, error, send, reset };
+  return { messages, suggestions, aromas, loading, error, send, reset };
 }
