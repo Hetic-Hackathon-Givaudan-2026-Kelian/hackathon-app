@@ -42,31 +42,39 @@ button:disabled {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 32px;
-  background: var(--white);
+  min-height: 76px;
+  padding: 18px 40px;
+  background: linear-gradient(
+    90deg,
+    rgb(255 255 255 / 94%) 0%,
+    rgb(255 255 255 / 94%) 50%,
+    rgb(252 228 232 / 94%) 100%
+  );
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
-  position: relative;
-  z-index: 2;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
+  gap: 14px;
+  font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
 }
 
 .brand-name {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 22px;
   letter-spacing: -0.01em;
 }
 
 .brand-sep {
   width: 1px;
-  height: 18px;
+  height: 24px;
   background: #d4567a;
 }
 
@@ -326,4 +334,424 @@ button:disabled {
   .question-zone {
     margin-top: 180px;
   }
+}
+
+/* ---------- Boutons supplémentaires ---------- */
+
+.btn-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  font-size: 14px;
+}
+
+.btn-dark {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-block {
+  width: 100%;
+  justify-content: center;
+  padding: 12px 16px;
+}
+
+/* ---------- Visuel d'ambiance ---------- */
+
+.visual {
+  position: relative;
+  overflow: hidden;
+}
+
+.visual-peach {
+  background: linear-gradient(120deg, #fde7dc 0%, #f9d2c0 40%, #fbe3d6 70%, #fff3ec 100%);
+}
+
+.visual-berry {
+  background: linear-gradient(160deg, #fbe1e5 0%, #f6c6cf 45%, #fde9ec 100%);
+}
+
+.veil {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  border: 2px solid rgb(255 255 255 / 70%);
+  background: linear-gradient(90deg, rgb(255 255 255 / 0%), rgb(255 255 255 / 55%), rgb(255 255 255 / 0%));
+}
+
+.veil-1 {
+  width: 120%;
+  height: 46%;
+  left: -10%;
+  top: 34%;
+  transform: rotate(-8deg);
+}
+
+.veil-2 {
+  width: 110%;
+  height: 30%;
+  left: -5%;
+  top: 52%;
+  transform: rotate(6deg);
+  opacity: 0.7;
+}
+
+.fruit {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.visual-peach .fruit-1 {
+  width: 120px;
+  height: 46px;
+  right: 42%;
+  top: 48%;
+  border-radius: 60% 40% 55% 45%;
+  background: linear-gradient(135deg, #ffb347, #f28a1c);
+  transform: rotate(-30deg);
+  box-shadow: inset -6px -8px 14px rgb(180 80 0 / 35%);
+}
+
+.visual-peach .fruit-2 {
+  width: 150px;
+  height: 150px;
+  right: 18%;
+  top: 8%;
+  border-radius: 50% 50% 50% 0;
+  background: radial-gradient(circle at 50% 60%, #ffe39a 0 10%, #fffaf5 11% 100%);
+  transform: rotate(45deg);
+  box-shadow: 0 10px 30px rgb(230 160 130 / 35%);
+}
+
+.visual-berry .fruit-1 {
+  width: 130px;
+  height: 130px;
+  left: 35%;
+  top: 30%;
+  background: radial-gradient(circle at 35% 30%, #ff6b81 0%, #d92649 55%, #9e1530 100%);
+  box-shadow: 0 14px 30px rgb(160 20 50 / 30%);
+}
+
+.visual-berry .fruit-2 {
+  width: 110px;
+  height: 110px;
+  left: 45%;
+  top: 62%;
+  background: radial-gradient(circle at 40% 35%, #ffffff 0%, #f7eee8 55%, #d9c4bb 100%);
+  border: 6px solid #c94a5d;
+}
+
+.drop {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff 0%, rgb(255 255 255 / 40%) 45%, rgb(240 160 130 / 50%) 100%);
+  box-shadow: inset -2px -3px 5px rgb(230 130 110 / 40%);
+}
+
+.visual-berry .drop {
+  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #ffd0d8 45%, #e8536f 100%);
+}
+
+.drop-1 { width: 34px; height: 34px; left: 38%; top: 18%; }
+.drop-2 { width: 18px; height: 18px; left: 70%; top: 22%; }
+.drop-3 { width: 24px; height: 24px; left: 58%; top: 78%; }
+.drop-4 { width: 12px; height: 12px; left: 84%; top: 60%; }
+
+/* ---------- Accueil ---------- */
+
+.landing {
+  background: var(--white);
+}
+
+.hero {
+  position: relative;
+  min-height: min(560px, 70vh);
+  display: flex;
+  align-items: center;
+}
+
+.hero-visual {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 1;
+  padding: 64px 48px;
+  max-width: 680px;
+}
+
+.hero-text h1 {
+  margin: 0 0 24px;
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.step-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--peach-light);
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.step h2 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.step p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.showcase {
+  max-width: 1000px;
+  margin: 0 auto 48px;
+  padding: 36px 24px 32px;
+  border-radius: 18px;
+  text-align: center;
+  background: linear-gradient(180deg, #fde7dc 0%, #fbeee8 60%, #fdf4f0 100%);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eyebrow::after {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 2px;
+  margin: 8px auto 0;
+  background: #e0607e;
+}
+
+.showcase h2 {
+  margin: 14px 0 28px;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.sample-chat {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 18px 24px 24px;
+  border-radius: 12px;
+  background: var(--white);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.sample-label {
+  margin: 10px 0 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.sample-label-right {
+  align-self: flex-end;
+}
+
+.bubble-msg {
+  margin: 0;
+  max-width: 62%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.bubble-user {
+  align-self: flex-end;
+  background: var(--peach-light);
+}
+
+.bubble-umi {
+  background: #fbe4e6;
+}
+
+/* ---------- Connexion ---------- */
+
+.login {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+}
+
+.login-visual {
+  min-height: 420px;
+}
+
+.login-form {
+  align-self: center;
+  justify-self: center;
+  width: min(420px, 100%);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-form h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.login-sub {
+  margin: -8px 0 8px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.login-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  font: inherit;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid #d9d6e0;
+  border-radius: 8px;
+  outline-color: var(--plum-soft);
+}
+
+.login-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.login-form .check {
+  flex-direction: row;
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.login-row a {
+  color: var(--ink);
+}
+
+.or {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.or::before,
+.or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #d9d6e0;
+}
+
+@media (max-width: 760px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .bubble-msg {
+    max-width: 90%;
+  }
+
+  .login {
+    grid-template-columns: 1fr;
+  }
+
+  .login-visual {
+    min-height: 180px;
+  }
+}
+
+.visual-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.login-form h1 {
+  font-size: 26px;
+}
+
+/* Fondu léger sur l'image de l'accueil, comme sur la maquette */
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgb(255 255 255 / 35%) 0%,
+      rgb(255 255 255 / 0%) 18%,
+      rgb(255 255 255 / 0%) 75%,
+      #ffffff 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgb(255 247 242 / 70%) 0%,
+      rgb(255 247 242 / 35%) 35%,
+      rgb(255 247 242 / 0%) 60%
+    );
+}
+
+/* Bouton de la hero, un peu plus grand */
+.hero-text .btn {
+  padding: 14px 24px;
+  font-size: 16px;
+  border-radius: 10px;
 }
