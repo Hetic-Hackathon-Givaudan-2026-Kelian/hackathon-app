@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+import type { AromaCardData } from "../aromas";
+import AromaCard from "../components/AromaCard";
 import Header from "../components/Header";
 import Ribbon from "../components/Ribbon";
 import type { Message } from "../useChat";
@@ -12,6 +14,9 @@ type Props = {
   onSend: (text: string) => void;
   onCancel: () => void;
   onSummary: () => void;
+  aromas: AromaCardData[];
+  selected: string[];
+  onToggle: (id: string) => void;
 };
 
 const OPENING =
@@ -26,6 +31,9 @@ export default function Conversation({
   onSend,
   onCancel,
   onSummary,
+  aromas,
+  selected,
+  onToggle,
 }: Props) {
   const [input, setInput] = useState("");
 
@@ -106,6 +114,33 @@ export default function Conversation({
                 <span />
               </span>
             </p>
+          ) : aromas.length > 0 ? (
+            <div key="resultats" className="anim-up results">
+              <h1 className="question">
+                Voici les arômes du catalogue qui correspondent à votre projet
+              </h1>
+              <p className="hint">
+                Sélectionnez ceux que vous souhaitez joindre à votre demande.
+              </p>
+              <div className="arome-grid">
+                {aromas.map((aroma, i) => (
+                  <AromaCard
+                    key={aroma.id}
+                    aroma={aroma}
+                    index={i}
+                    selected={selected.includes(aroma.id)}
+                    onToggle={() => onToggle(aroma.id)}
+                  />
+                ))}
+              </div>
+              <button className="btn btn-plum btn-cta" onClick={onSummary}>
+                Voir la synthèse de ma demande
+                <span aria-hidden="true"> →</span>
+              </button>
+              <p className="results-note">
+                Un détail à préciser ? Répondez simplement à Umi ci-dessous.
+              </p>
+            </div>
           ) : (
             <div key={question} className="anim-up">
               <h1 className="question">{question}</h1>
