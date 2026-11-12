@@ -1381,3 +1381,87 @@ button:disabled {
   color: var(--ink-soft);
   line-height: 1.6;
 }
+
+/* ---------- Client connecté (mock) ---------- */
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 6px;
+  padding-left: 14px;
+  border-left: 1px solid #e6dfe8;
+}
+
+.user-avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--plum);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.user-company {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 900px) {
+  .user-text {
+    display: none;
+  }
+}
+
+.login-error {
+  margin: -4px 0 0;
+  color: #a0283c;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-demo {
+  margin: -4px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.link-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.summary-client p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.summary-email {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.arome-grid.is-compact .arome-card {
+  flex-basis: 220px;
+}

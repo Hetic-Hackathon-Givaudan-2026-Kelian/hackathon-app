@@ -5,8 +5,10 @@ import AromaCard from "../components/AromaCard";
 import Header from "../components/Header";
 import Ribbon from "../components/Ribbon";
 import type { Message } from "../useChat";
+import type { User } from "../user";
 
 type Props = {
+  user: User | null;
   messages: Message[];
   suggestions: string[];
   loading: boolean;
@@ -24,6 +26,7 @@ const OPENING =
 
 /** Écran « Nouvelle demande » : une seule question à la fois, au centre. */
 export default function Conversation({
+  user,
   messages,
   suggestions,
   loading,
@@ -37,12 +40,14 @@ export default function Conversation({
 }: Props) {
   const [input, setInput] = useState("");
 
+  const opening = user ? `Bonjour ${user.firstName}. ${OPENING}` : OPENING;
+
   const answersRef = useRef<HTMLOListElement>(null);
 
   // La dernière question d'Umi s'affiche en grand. Au-dessus, les réponses
   // déjà données par le client, en pastilles, pour qu'il garde le fil.
   const last = messages.at(-1);
-  const question = last?.role === "assistant" ? last.content : OPENING;
+  const question = last?.role === "assistant" ? last.content : opening;
   const isQuestion = question.trim().endsWith("?");
   const answers = messages
     .map((m, i) => ({ ...m, index: i }))
@@ -54,7 +59,7 @@ export default function Conversation({
         messages
           .slice(0, m.index)
           .reverse()
-          .find((x) => x.role === "assistant")?.content ?? OPENING,
+          .find((x) => x.role === "assistant")?.content ?? opening,
     }));
 
   // Sur petit écran, les pastilles défilent jusqu'à la dernière.
@@ -71,7 +76,7 @@ export default function Conversation({
 
   return (
     <div className="page page-conversation">
-      <Header trail={["Umi", "Nouvelle demande"]}>
+      <Header trail={["Umi", "Nouvelle demande"]} user={user}>
         <button className="btn btn-outline" onClick={onCancel}>
           Annuler la demande
         </button>

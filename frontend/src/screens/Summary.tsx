@@ -3,8 +3,10 @@ import { useState } from "react";
 import type { AromaCardData } from "../aromas";
 import AromaCard from "../components/AromaCard";
 import Header from "../components/Header";
+import type { User } from "../user";
 
 type Props = {
+  user: User | null;
   answers: string[];
   aromas: AromaCardData[];
   sending: boolean;
@@ -15,6 +17,7 @@ type Props = {
 
 /** Synthèse de la demande, en lecture seule, avant l'envoi aux experts. */
 export default function Summary({
+  user,
   answers,
   aromas,
   sending,
@@ -26,7 +29,7 @@ export default function Summary({
 
   return (
     <div className="page summary-page">
-      <Header trail={["Umi", "Synthèse"]}>
+      <Header trail={["Umi", "Synthèse"]} user={user}>
         <button className="btn btn-outline" onClick={onBack}>
           <span aria-hidden="true">←</span> Revenir à la conversation
         </button>
@@ -41,6 +44,23 @@ export default function Summary({
             conversation avec Umi.
           </p>
         </div>
+
+        {user && (
+          <section
+            className="summary-block summary-client anim-up"
+            style={{ "--delay": "60ms" } as React.CSSProperties}
+          >
+            <h2>Demandeur</h2>
+            <p>
+              <strong>
+                {user.firstName} {user.lastName}
+              </strong>{" "}
+              · {user.company}
+              <br />
+              <span className="summary-email">{user.email}</span>
+            </p>
+          </section>
+        )}
 
         <section
           className="summary-block anim-up"

@@ -96,6 +96,12 @@ paths:
             schema:
               $ref: "#/components/schemas/BriefRequest"
             example:
+              client:
+                {
+                  name: "Léonie Durand",
+                  company: "Maison Durand",
+                  email: "leonie.durand@company.com",
+                }
               answers: ["Une limonade fraîche et acidulée", "Plutôt agrumes"]
               aromas:
                 [{ source_id: "AR-citron-boissons", name: "Citron - boissons" }]
@@ -118,6 +124,19 @@ components:
       type: object
       required: [answers]
       properties:
+        client:
+          description: Le client connecté (compte de démo dans le prototype)
+          oneOf:
+            - type: "null"
+            - type: object
+              required: [name, company, email]
+              properties:
+                name:
+                  type: string
+                company:
+                  type: string
+                email:
+                  type: string
         answers:
           type: array
           minItems: 1

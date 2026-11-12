@@ -1,17 +1,25 @@
 import Header from "../components/Header";
 import Ribbon from "../components/Ribbon";
+import type { User } from "../user";
 
 type Props = {
+  user: User | null;
   id: string;
   aromaCount: number;
   onNew: () => void;
   onHome: () => void;
 };
 
-export default function Confirmation({ id, aromaCount, onNew, onHome }: Props) {
+export default function Confirmation({
+  user,
+  id,
+  aromaCount,
+  onNew,
+  onHome,
+}: Props) {
   return (
     <div className="page confirmation-page">
-      <Header trail={["Umi", "Demande transmise"]}>
+      <Header trail={["Umi", "Demande transmise"]} user={user}>
         <button className="btn btn-outline" onClick={onHome}>
           Retour à l'accueil
         </button>
