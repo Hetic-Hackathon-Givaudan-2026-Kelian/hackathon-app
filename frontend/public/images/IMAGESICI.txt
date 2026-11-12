@@ -1,0 +1,3 @@
+Mettre ici les images exportées des maquettes :
+- hero.png  : visuel de la page d accueil (orange, fleur, gouttes)
+- login.png : visuel de la connexion (framboise, litchi)
