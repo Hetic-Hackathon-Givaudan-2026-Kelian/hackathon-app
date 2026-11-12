@@ -35,6 +35,10 @@ class AskResponse(BaseModel):
     answer: str
     model: str
     sources: list[Source]
+    suggestions: list[str] = Field(
+        default_factory=list,
+        description="Réponses courtes proposées au client (facultatif)",
+    )
 
 
 _FAKE_RESPONSE = [
@@ -107,6 +111,18 @@ async def search_sources(question: str, top_k: int = 4) -> list[Source]:
     return sources
 
 
+_FAKE_QUESTIONS = [
+    (
+        "Pour quel type de produit cherchez-vous un arôme ?",
+        ["Boisson", "Yaourt", "Biscuit", "Glace"],
+    ),
+    (
+        "Quel profil de goût imaginez-vous ?",
+        ["Fraîche", "Juteuse", "Mûre", "Acidulée", "Douce"],
+    ),
+]
+
+
 async def ask_assistant(
     question: str, history: list[dict[str, str]], top_k: int = 4
 ) -> AskResponse:
@@ -129,9 +145,10 @@ async def ask_assistant(
             return AskResponse(
                 question=question,
                 status="needs_clarification",
-                answer="Pour quel type de produit cherchez-vous un arôme ?",
+                answer=_FAKE_QUESTIONS[min(len(history) // 2, 1)][0],
                 model="factice",
                 sources=[],
+                suggestions=_FAKE_QUESTIONS[min(len(history) // 2, 1)][1],
             )
         return AskResponse(
             question=question,
