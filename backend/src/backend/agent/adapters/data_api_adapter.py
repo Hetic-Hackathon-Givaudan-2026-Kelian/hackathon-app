@@ -35,6 +35,9 @@ class DataApiAgent:
 
         yield TextEvent(content=response.answer)
 
+        if response.suggestions:
+            yield ToolResultEvent(tool_name="suggestions", result=response.suggestions)
+
         if response.status == "recommendations_ready" and response.sources:
             yield ToolResultEvent(
                 tool_name="recommend_aromas",
