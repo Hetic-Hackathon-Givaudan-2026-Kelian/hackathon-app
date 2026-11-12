@@ -7,6 +7,7 @@ import Landing from "./screens/Landing";
 import Login from "./screens/Login";
 import Summary from "./screens/Summary";
 import { useChat } from "./useChat";
+import type { User } from "./user";
 
 type Screen = "landing" | "login" | "conversation" | "summary" | "sent";
 
@@ -16,6 +17,7 @@ export default function App() {
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
   const [briefId, setBriefId] = useState("");
+  const [user, setUser] = useState<User | null>(null);
   const chat = useChat();
 
   const aromas = chat.aromas.map(toCardData);
@@ -49,6 +51,13 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           answers,
+          client: user
+            ? {
+                name: `${user.firstName} ${user.lastName}`,
+                company: user.company,
+                email: user.email,
+              }
+            : null,
           aromas: attached.map((a) => ({ source_id: a.id, name: a.name })),
           message: message.trim() || null,
         }),
@@ -69,7 +78,7 @@ export default function App() {
   if (screen === "landing") {
     return (
       <div key="landing" className="screen-fade">
-        <Landing onStart={() => setScreen("login")} />
+        <Landing onStart={() => setScreen(user ? "conversation" : "login")} />
       </div>
     );
   }
@@ -78,7 +87,10 @@ export default function App() {
     return (
       <div key="login" className="screen-fade">
         <Login
-          onLogin={() => setScreen("conversation")}
+          onLogin={(u) => {
+            setUser(u);
+            setScreen("conversation");
+          }}
           onBack={() => setScreen("landing")}
         />
       </div>
@@ -89,6 +101,7 @@ export default function App() {
     return (
       <div key="summary" className="screen-fade">
         <Summary
+          user={user}
           answers={answers}
           aromas={attached}
           sending={sending}
@@ -104,6 +117,7 @@ export default function App() {
     return (
       <div key="sent" className="screen-fade">
         <Confirmation
+          user={user}
           id={briefId}
           aromaCount={attached.length}
           onNew={newRequest}
@@ -119,6 +133,7 @@ export default function App() {
   return (
     <div key="conversation" className="screen-fade">
       <Conversation
+        user={user}
         messages={chat.messages}
         suggestions={chat.suggestions}
         loading={chat.loading}

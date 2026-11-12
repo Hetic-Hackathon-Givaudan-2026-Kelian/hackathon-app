@@ -16,7 +16,16 @@ class AttachedAroma(BaseModel):
     name: str
 
 
+class Client(BaseModel):
+    """Le client connecté. Prototype : compte de démo, sans vérification côté back."""
+
+    name: str
+    company: str
+    email: str
+
+
 class BriefRequest(BaseModel):
+    client: Client | None = None
     answers: list[str] = Field(min_length=1, description="Ce que le client a dit à Umi")
     aromas: list[AttachedAroma] = Field(default_factory=list)
     message: str | None = Field(default=None, max_length=2000)
